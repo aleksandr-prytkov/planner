@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, HTTPException, status, Depends, Body
 from models.users import NewUser, UserSignIn
 from typing import Annotated
 
@@ -11,7 +11,12 @@ users = {}
 
 
 @user_router.post("/signup")
-async def sign_new_user(data: Annotated[NewUser, Depends()]) -> dict:
+async def sign_new_user(
+        data: Annotated[
+            NewUser,
+            Body(...)
+        ]
+) -> dict:
     if data.email in users:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -25,7 +30,11 @@ async def sign_new_user(data: Annotated[NewUser, Depends()]) -> dict:
 
 
 @user_router.post("/signin")
-async def sign_user_in(user: Annotated[UserSignIn, Depends()]) -> dict:
+async def sign_user_in(
+        user: Annotated[
+            UserSignIn, Body(...)
+        ]
+) -> dict:
     if not users.get(user.email):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

@@ -13,7 +13,7 @@ class User(BaseModel):
             "example": {
                 "email": "example@email.com",
                 "password": "strong!!!",
-                "events": [],
+                "events": []
             }
         }
 
@@ -37,6 +37,6 @@ class UserSignIn(BaseModel):
             "example": {
                 "email": "example@email.com",
                 "password": "strong!!!",
-                "events": [],
+                "events": []
         }
 }

@@ -1,0 +1,46 @@
+CREATE TABLE cources (
+c_no text PRIMARY KEY,
+title text,
+hours integer);
+
+INSERT INTO cources(c_no, title, hours)
+VALUES ('CS301', 'Базы данных', 30),
+('CS305', 'Сети ЭВМ', 60);
+
+
+CREATE TABLE students (
+s_id integer PRIMARY KEY,
+name text,
+start_year integer
+);
+
+
+# class Event(BaseModel):
+#     id: int = Field(..., description="Уникальный идентификатор события", example=1)
+#     title: str = Field(..., description="Название события", example="My First Event")
+#     image: str = Field(..., description="URL изображения события", example="https://myimage.com/picture.png")
+#     description: str = Field(..., description="Описание события", example="My description for my first event")
+#     tags: List[str] = Field(..., description="Список тегов, связанных с событием",
+#                             example=["python", "fastapi", "launch"])
+#     location: str = Field(..., description="Местоположение события", example="Google meeting")
+
+
+INSERT INTO students (s_id, name, start_year)
+VALUES (1451, 'Анна', 2014),
+(1432, 'Виктор', 2014),
+(1556, 'Нина', 2015);
+
+
+CREATE TABLE exams (
+s_id integer REFERENCES students(s_id),
+c_no text REFERENCES cources(c_no),
+score integer,
+CONSTRAINT pk PRIMARY KEY(s_id, c_no)
+);
+
+
+INSERT INTO exams(s_id, c_no, score)
+VALUES (1451, 'CS301', 5),
+(1556, 'CS301', 5),
+(1451, 'CS305', 5),
+(1432, 'CS305', 4);
